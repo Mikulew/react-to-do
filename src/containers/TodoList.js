@@ -12,8 +12,19 @@ const TodoList = ({ todos, toggleTodo }) => (
   </ul>
 );
 
+const filtersTodo = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_COMPLETED':
+      return todos.filter(todo => todo.complete === true);
+    case 'SHOW_ACTIVE':
+      return todos.filter(todo => todo.complete === false);
+    default:
+      return todos;
+  }
+};
+
 const mapStateToProps = state => ({
-  todos: state.todos,
+  todos: filtersTodo(state.todos, state.filter),
 });
 
 const mapDispatchToProps = {
